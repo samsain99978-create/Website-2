@@ -29,7 +29,7 @@ function showToast(message, type) {
     }
     toast.textContent = message;
     toast.className = 'toast-notification ' + type + ' show';
-    setTimeout(function() { toast.classList.remove('show'); }, 2500);
+    setTimeout(function () { toast.classList.remove('show'); }, 2500);
 }
 
 // ============================================================
@@ -57,7 +57,7 @@ function verifySettingsPasskey() {
         showToast('Invalid Security Passkey!', 'error');
         inputEl.style.borderColor = '#dc2626';
         inputEl.classList.add('flash-red');
-        setTimeout(function() { inputEl.classList.remove('flash-red'); }, 500);
+        setTimeout(function () { inputEl.classList.remove('flash-red'); }, 500);
     }
 }
 
@@ -80,9 +80,9 @@ function updateSettingsGateState() {
 // ============================================================
 
 function switchTab(tabName) {
-    document.querySelectorAll('.admin-tab').forEach(function(t) { t.classList.remove('active'); });
-    document.querySelectorAll('.tab-content').forEach(function(c) { c.classList.remove('active'); });
-    
+    document.querySelectorAll('.admin-tab').forEach(function (t) { t.classList.remove('active'); });
+    document.querySelectorAll('.tab-content').forEach(function (c) { c.classList.remove('active'); });
+
     var tabBtn = document.querySelector('[data-tab="' + tabName + '"]');
     var tabContent = document.getElementById('tab-' + tabName);
     if (tabBtn) tabBtn.classList.add('active');
@@ -99,10 +99,10 @@ function switchTab(tabName) {
 
 function makeEditable(cell, saveCallback) {
     if (cell.classList.contains('editing')) return;
-    
+
     var currentValue = cell.textContent.trim();
     cell.classList.add('editing');
-    
+
     var input = document.createElement('input');
     input.type = 'text';
     input.value = currentValue;
@@ -117,7 +117,7 @@ function makeEditable(cell, saveCallback) {
         cell.textContent = newValue;
         if (saveCallback) saveCallback(newValue);
         cell.classList.add('flash-green');
-        setTimeout(function() { cell.classList.remove('flash-green'); }, 500);
+        setTimeout(function () { cell.classList.remove('flash-green'); }, 500);
         showToast('Saved!');
     }
 
@@ -126,12 +126,12 @@ function makeEditable(cell, saveCallback) {
         cell.textContent = currentValue;
     }
 
-    input.addEventListener('keydown', function(e) {
+    input.addEventListener('keydown', function (e) {
         if (e.key === 'Enter') { e.preventDefault(); save(); }
         if (e.key === 'Escape') { e.preventDefault(); cancel(); }
     });
 
-    input.addEventListener('blur', function() {
+    input.addEventListener('blur', function () {
         setTimeout(save, 100);
     });
 }
@@ -150,7 +150,7 @@ function renderAdminPrimaryTable() {
     html += '<th>#</th><th>Game Name</th><th>Slug</th><th>Time</th><th>Yesterday</th><th>Today</th><th>Actions</th>';
     html += '</tr></thead><tbody>';
 
-    games.forEach(function(game, i) {
+    games.forEach(function (game, i) {
         html += '<tr>';
         html += '<td>' + (i + 1) + '</td>';
         html += '<td class="editable-cell" onclick="editPrimaryCell(' + i + ',\'name\',this)">' + game.name + '</td>';
@@ -168,7 +168,7 @@ function renderAdminPrimaryTable() {
 }
 
 function editPrimaryCell(index, field, cell) {
-    makeEditable(cell, function(newValue) {
+    makeEditable(cell, function (newValue) {
         var games = getData('games_primary');
         games[index][field] = newValue;
         setData('games_primary', games);
@@ -210,7 +210,7 @@ function renderAdminSecondaryTable() {
     html += '<th>#</th><th>Game Name</th><th>Slug</th><th>Time</th><th>Yesterday</th><th>Today</th><th>Actions</th>';
     html += '</tr></thead><tbody>';
 
-    games.forEach(function(game, i) {
+    games.forEach(function (game, i) {
         html += '<tr>';
         html += '<td>' + (i + 1) + '</td>';
         html += '<td class="editable-cell" onclick="editSecondaryCell(' + i + ',\'name\',this)">' + game.name + '</td>';
@@ -228,7 +228,7 @@ function renderAdminSecondaryTable() {
 }
 
 function editSecondaryCell(index, field, cell) {
-    makeEditable(cell, function(newValue) {
+    makeEditable(cell, function (newValue) {
         var games = getData('games_secondary');
         games[index][field] = newValue;
         setData('games_secondary', games);
@@ -254,7 +254,7 @@ function triggerManualDateRollover() {
 
     var primary = getData('games_primary');
     if (Array.isArray(primary)) {
-        primary.forEach(function(g) {
+        primary.forEach(function (g) {
             if (g.today && g.today !== '' && g.today !== '-') {
                 g.yesterday = g.today;
             }
@@ -265,7 +265,7 @@ function triggerManualDateRollover() {
 
     var secondary = getData('games_secondary');
     if (Array.isArray(secondary)) {
-        secondary.forEach(function(g) {
+        secondary.forEach(function (g) {
             if (g.today && g.today !== '' && g.today !== '-') {
                 g.yesterday = g.today;
             }
@@ -321,7 +321,7 @@ function renderAdminFeatured() {
 }
 
 function editFeaturedField(field, cell) {
-    makeEditable(cell, function(newValue) {
+    makeEditable(cell, function (newValue) {
         var featured = getData('featured');
         featured[field] = newValue;
         setData('featured', featured);
@@ -346,7 +346,7 @@ function renderAdminChart(containerId, headerKey, dataKey, chartIndex) {
     // Select-all checkbox
     html += '<th class="chart-select-col"><input type="checkbox" class="chart-select-all" id="sel-all-' + chartIndex + '" onchange="toggleSelectAllChartRows(' + chartIndex + ',this)" title="Select all rows"></th>';
     html += '<th class="chart-date-col">दिनांक</th>';
-    headers.forEach(function(h, hi) {
+    headers.forEach(function (h, hi) {
         html += '<th style="min-width:90px;position:relative;">';
         html += '<div style="display:flex;flex-direction:column;align-items:center;gap:4px;">';
         html += '<span class="editable-cell chart-header-cell" onclick="editChartHeader(' + chartIndex + ',' + hi + ',this)" title="Click to rename">' + h + '</span>';
@@ -358,7 +358,7 @@ function renderAdminChart(containerId, headerKey, dataKey, chartIndex) {
 
     // === DATA ROWS ===
     html += '<tbody>';
-    data.forEach(function(row, ri) {
+    data.forEach(function (row, ri) {
         html += '<tr class="chart-row" data-row="' + ri + '">';
         // Row checkbox
         html += '<td class="chart-select-cell"><input type="checkbox" class="chart-row-check" data-chart="' + chartIndex + '" data-row="' + ri + '" onchange="onChartRowCheckChange(' + chartIndex + ')"></td>';
@@ -387,7 +387,7 @@ function renderAdminChart(containerId, headerKey, dataKey, chartIndex) {
 // Toggle all row checkboxes in a chart table
 function toggleSelectAllChartRows(chartIndex, masterCb) {
     var checks = document.querySelectorAll('.chart-row-check[data-chart="' + chartIndex + '"]');
-    checks.forEach(function(cb) {
+    checks.forEach(function (cb) {
         cb.checked = masterCb.checked;
         var row = cb.closest('tr');
         if (row) row.classList.toggle('chart-row-selected', masterCb.checked);
@@ -399,7 +399,7 @@ function toggleSelectAllChartRows(chartIndex, masterCb) {
 function onChartRowCheckChange(chartIndex) {
     var checks = document.querySelectorAll('.chart-row-check[data-chart="' + chartIndex + '"]');
     var selected = 0;
-    checks.forEach(function(cb) {
+    checks.forEach(function (cb) {
         var row = cb.closest('tr');
         if (cb.checked) {
             selected++;
@@ -431,9 +431,9 @@ function deleteSelectedChartRows(chartIndex) {
     var data = getData(keys.data);
     // Collect row indices in descending order so splicing doesn't shift indices
     var indices = [];
-    checks.forEach(function(cb) { indices.push(parseInt(cb.getAttribute('data-row'), 10)); });
-    indices.sort(function(a, b) { return b - a; });
-    indices.forEach(function(ri) { data.splice(ri, 1); });
+    checks.forEach(function (cb) { indices.push(parseInt(cb.getAttribute('data-row'), 10)); });
+    indices.sort(function (a, b) { return b - a; });
+    indices.forEach(function (ri) { data.splice(ri, 1); });
 
     setData(keys.data, data);
     renderAdminChart(getChartContainerId(chartIndex), keys.header, keys.data, chartIndex);
@@ -468,7 +468,7 @@ function getChartContainerId(chartIndex) {
 
 function editChartHeader(chartIndex, headerIndex, cell) {
     var keys = getChartKeys(chartIndex);
-    makeEditable(cell, function(newValue) {
+    makeEditable(cell, function (newValue) {
         var headers = getData(keys.header);
         headers[headerIndex] = newValue;
         setData(keys.header, headers);
@@ -477,7 +477,7 @@ function editChartHeader(chartIndex, headerIndex, cell) {
 
 function editChartDate(chartIndex, rowIndex, cell) {
     var keys = getChartKeys(chartIndex);
-    makeEditable(cell, function(newValue) {
+    makeEditable(cell, function (newValue) {
         var data = getData(keys.data);
         data[rowIndex].date = newValue;
         setData(keys.data, data);
@@ -486,7 +486,7 @@ function editChartDate(chartIndex, rowIndex, cell) {
 
 function editChartValue(chartIndex, rowIndex, valueIndex, cell) {
     var keys = getChartKeys(chartIndex);
-    makeEditable(cell, function(newValue) {
+    makeEditable(cell, function (newValue) {
         var data = getData(keys.data);
         data[rowIndex].values[valueIndex] = newValue;
         setData(keys.data, data);
@@ -497,7 +497,7 @@ function addChartRow(chartIndex) {
     var keys = getChartKeys(chartIndex);
     var headers = getData(keys.header);
     var data = getData(keys.data);
-    var emptyValues = headers.map(function() { return '-'; });
+    var emptyValues = headers.map(function () { return '-'; });
     data.push({ date: 'NEW', values: emptyValues });
     setData(keys.data, data);
     renderAdminChart(getChartContainerId(chartIndex), keys.header, keys.data, chartIndex);
@@ -521,7 +521,7 @@ function addChartColumnInline(chartIndex) {
     var headers = getData(keys.header);
     var data = getData(keys.data);
     headers.push(name.trim());
-    data.forEach(function(row) {
+    data.forEach(function (row) {
         if (!row.values) row.values = [];
         row.values.push('-');
     });
@@ -543,7 +543,7 @@ function deleteChartColumn(chartIndex, colIndex) {
     if (!confirm('Delete column "' + colName + '"? This will remove all values in this column.')) return;
     headers.splice(colIndex, 1);
     var data = getData(keys.data);
-    data.forEach(function(row) {
+    data.forEach(function (row) {
         if (row.values && row.values.length > colIndex) {
             row.values.splice(colIndex, 1);
         }
@@ -613,7 +613,7 @@ function renderAdminAdContent() {
 
     if (currentAdEditorTab === 'easy') {
         html += '<div style="background:#f8fafc;border:1px solid #cbd5e1;border-radius:10px;padding:20px;">';
-        
+
         // Header Titles
         html += '<div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-bottom:15px;">';
         html += '<div><label style="color:#0f172a;font-weight:700;margin-bottom:5px;display:block;">Top Header Line</label>';
@@ -638,7 +638,7 @@ function renderAdminAdContent() {
         if (items.length === 0) {
             html += '<tr><td colspan="5" style="text-align:center;color:#64748b;padding:20px;">No timing rows added yet. Click "+ Add Timing Row" above.</td></tr>';
         } else {
-            items.forEach(function(item, idx) {
+            items.forEach(function (item, idx) {
                 html += '<tr>';
                 html += '<td>' + (idx + 1) + '</td>';
                 html += '<td style="font-size:22px;">⏰</td>';
@@ -702,7 +702,7 @@ function deleteAdScheduleRow(index) {
 function syncAdScheduleFromPrimaryGames() {
     var primary = getData('games_primary') || [];
     var schedule = getData('ad_schedule') || { items: [] };
-    schedule.items = primary.map(function(g) {
+    schedule.items = primary.map(function (g) {
         return { name: g.name, time: g.time };
     });
     setData('ad_schedule', schedule);
@@ -857,7 +857,7 @@ function renderAdminRecordGamesTable() {
     html += '<th>#</th><th>Game Name (Hindi / Display)</th><th>Slug</th><th>Actions</th>';
     html += '</tr></thead><tbody>';
 
-    games.forEach(function(game, i) {
+    games.forEach(function (game, i) {
         html += '<tr>';
         html += '<td>' + (i + 1) + '</td>';
         html += '<td class="editable-cell" onclick="editRecordGameCell(' + i + ',\'name\',this)" title="Click to edit name">' + (game.name || game.display) + '</td>';
@@ -872,14 +872,14 @@ function renderAdminRecordGamesTable() {
 }
 
 function editRecordGameCell(index, field, cell) {
-    makeEditable(cell, function(newValue) {
+    makeEditable(cell, function (newValue) {
         var games = getData('record_games');
         games[index][field] = newValue;
         if (field === 'name') games[index].display = newValue;
         setData('record_games', games);
 
         // Keep year_headers in sync
-        var yearHeaders = games.map(function(g) { return g.name || g.display; });
+        var yearHeaders = games.map(function (g) { return g.name || g.display; });
         setData('year_headers', yearHeaders);
 
         renderAdminRecordGamesTable();
@@ -900,14 +900,14 @@ function addRecordGameRow() {
     games.push({ name: name.trim(), slug: newSlug, display: name.trim() });
     setData('record_games', games);
 
-    var yearHeaders = games.map(function(g) { return g.name || g.display; });
+    var yearHeaders = games.map(function (g) { return g.name || g.display; });
     setData('year_headers', yearHeaders);
 
     // Add empty '-' value for each row in yearly datasets
-    [2026, 2025, 2024, 2023].forEach(function(year) {
+    [2026, 2025, 2024, 2023].forEach(function (year) {
         var key = 'year_' + year + '_data';
         var d = getData(key) || [];
-        d.forEach(function(r) {
+        d.forEach(function (r) {
             if (!r.values) r.values = [];
             r.values.push('-');
         });
@@ -929,14 +929,14 @@ function deleteRecordGameRow(index) {
     games.splice(index, 1);
     setData('record_games', games);
 
-    var yearHeaders = games.map(function(g) { return g.name || g.display; });
+    var yearHeaders = games.map(function (g) { return g.name || g.display; });
     setData('year_headers', yearHeaders);
 
     // Remove value at index for each row in yearly datasets
-    [2026, 2025, 2024, 2023].forEach(function(year) {
+    [2026, 2025, 2024, 2023].forEach(function (year) {
         var key = 'year_' + year + '_data';
         var d = getData(key) || [];
-        d.forEach(function(r) {
+        d.forEach(function (r) {
             if (r.values && r.values.length > index) {
                 r.values.splice(index, 1);
             }
@@ -951,6 +951,49 @@ function deleteRecordGameRow(index) {
     renderAdminChart('admin-year-2023', 'year_headers', 'year_2023_data', 8);
     showToast('Record game deleted!', 'error');
 }
+// --- Fill Random Yearly Chart Data (10-99) ---
+
+function fillRandomYearlyChartData(year, confirmFirst) {
+    if (confirmFirst !== false) {
+        if (!confirm('Fill random numbers (10 to 99) for all cells in SATTA RECORD CHART ' + year + '?')) return;
+    }
+    var genFunc = (typeof generateYearlyChartData === 'function') ? generateYearlyChartData : function (y) {
+        var months = ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'];
+        var rGames = getData('record_games') || [];
+        var count = rGames.length || 17;
+        return months.map(function (m) {
+            var vals = [];
+            for (var i = 0; i < count; i++) {
+                vals.push(String(Math.floor(Math.random() * 90) + 10));
+            }
+            return { date: m + ' ' + y, values: vals };
+        });
+    };
+
+    var data = genFunc(year, true);
+    var key = 'year_' + year + '_data';
+    setData(key, data);
+
+    var chartIndexMap = { 2026: 5, 2025: 6, 2024: 7, 2023: 8 };
+    var idx = chartIndexMap[year];
+    if (idx !== undefined) {
+        renderAdminChart(getChartContainerId(idx), 'year_headers', key, idx);
+    }
+    showToast('Random values (10-99) filled for ' + year + ' record chart!', 'success');
+}
+
+function fillAllRandomYearlyCharts() {
+    if (!confirm('Fill random numbers (10 to 99) for 2025, 2024, and 2023 record charts?')) return;
+    [2025, 2024, 2023].forEach(function (yr) {
+        fillRandomYearlyChartData(yr, false);
+    });
+    showToast('Random values (10-99) filled for 2025, 2024, and 2023!', 'success');
+}
+
+if (typeof window !== 'undefined') {
+    window.fillRandomYearlyChartData = fillRandomYearlyChartData;
+    window.fillAllRandomYearlyCharts = fillAllRandomYearlyCharts;
+}
 
 // ============================================================
 // Initialize Admin Page
@@ -963,7 +1006,7 @@ function initAdminPage() {
     var primaryGames = getData('games_primary');
     var secondaryGames = getData('games_secondary');
     var totalGames = (primaryGames ? primaryGames.length : 0) + (secondaryGames ? secondaryGames.length : 0);
-    
+
     var el1 = document.getElementById('stat-total-games');
     if (el1) el1.textContent = totalGames;
     var el2 = document.getElementById('stat-primary-games');

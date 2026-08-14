@@ -136,6 +136,11 @@
         <!-- TAB: YEARLY RECORD CHARTS -->
         <!-- ============================================ -->
         <div class="tab-content" id="tab-yearly">
+            <div style="margin-bottom:15px;display:flex;gap:10px;align-items:center;flex-wrap:wrap;">
+                <button class="btn-admin btn-info" onclick="fillAllRandomYearlyCharts()" style="padding:10px 20px;font-size:13px;font-weight:700;">
+                    🎲 Fill Random Values (10-99) for 2025, 2024 & 2023
+                </button>
+            </div>
             <div class="admin-section">
                 <h3>SATTA RECORD CHART — Game List <span class="section-badge">Click to edit game names</span></h3>
                 <p style="color:#888;font-size:13px;margin-bottom:10px;">These are the games shown in the "SATTA RECORD CHART" list on the website. Click any game name to edit it inline or add/delete games. Changes automatically sync to the yearly record charts below.</p>
@@ -143,25 +148,37 @@
             </div>
 
             <div class="admin-section">
-                <h3>SATTA RECORD CHART 2026 <span class="section-badge">Click any cell to edit</span></h3>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:10px;">
+                    <h3 style="margin:0;">SATTA RECORD CHART 2026 <span class="section-badge">Click any cell to edit</span></h3>
+                    <button class="btn-admin btn-info btn-xs" onclick="fillRandomYearlyChartData(2026)" style="padding:5px 12px;font-size:12px;font-weight:700;">🎲 Fill Random (10-99)</button>
+                </div>
                 <p style="color:#888;font-size:13px;margin-bottom:10px;">Monthly results for 2026. Click any cell to edit. Scroll right to see all columns. Changes reflect live on the Chart page.</p>
                 <div class="table-scroll" id="admin-year-2026"></div>
             </div>
 
             <div class="admin-section">
-                <h3>SATTA RECORD CHART 2025 <span class="section-badge">Click any cell to edit</span></h3>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:10px;">
+                    <h3 style="margin:0;">SATTA RECORD CHART 2025 <span class="section-badge">Click any cell to edit</span></h3>
+                    <button class="btn-admin btn-info btn-xs" onclick="fillRandomYearlyChartData(2025)" style="padding:5px 12px;font-size:12px;font-weight:700;">🎲 Fill Random (10-99)</button>
+                </div>
                 <p style="color:#888;font-size:13px;margin-bottom:10px;">Monthly results for 2025 — 17 games.</p>
                 <div class="table-scroll" id="admin-year-2025"></div>
             </div>
 
             <div class="admin-section">
-                <h3>SATTA RECORD CHART 2024 <span class="section-badge">Click any cell to edit</span></h3>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:10px;">
+                    <h3 style="margin:0;">SATTA RECORD CHART 2024 <span class="section-badge">Click any cell to edit</span></h3>
+                    <button class="btn-admin btn-info btn-xs" onclick="fillRandomYearlyChartData(2024)" style="padding:5px 12px;font-size:12px;font-weight:700;">🎲 Fill Random (10-99)</button>
+                </div>
                 <p style="color:#888;font-size:13px;margin-bottom:10px;">Monthly results for 2024 — 17 games.</p>
                 <div class="table-scroll" id="admin-year-2024"></div>
             </div>
 
             <div class="admin-section">
-                <h3>SATTA RECORD CHART 2023 <span class="section-badge">Click any cell to edit</span></h3>
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;flex-wrap:wrap;gap:10px;">
+                    <h3 style="margin:0;">SATTA RECORD CHART 2023 <span class="section-badge">Click any cell to edit</span></h3>
+                    <button class="btn-admin btn-info btn-xs" onclick="fillRandomYearlyChartData(2023)" style="padding:5px 12px;font-size:12px;font-weight:700;">🎲 Fill Random (10-99)</button>
+                </div>
                 <p style="color:#888;font-size:13px;margin-bottom:10px;">Monthly results for 2023 — 17 games.</p>
                 <div class="table-scroll" id="admin-year-2023"></div>
             </div>
@@ -245,9 +262,9 @@
 
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-<script src="js/data.js?v=14"></script>
-<script src="js/firebase-data.js?v=14"></script>
-<script src="js/admin.js?v=14"></script>
+<script src="js/data.js?v=15"></script>
+<script src="js/firebase-data.js?v=15"></script>
+<script src="js/admin.js?v=15"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         initAdminPage();
